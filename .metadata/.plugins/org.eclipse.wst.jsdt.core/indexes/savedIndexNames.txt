@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Users\calic\Documents\GitHub\sonarQube\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+390789327.index
+3698314146.index
+3217281789.index
+3883348370.index
+1380771327.index
+1119957519.index
