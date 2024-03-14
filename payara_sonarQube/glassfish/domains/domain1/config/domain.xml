@@ -581,7 +581,7 @@
   <deployment-groups></deployment-groups>
   <clusters></clusters>
   <applications>
-    <application deployment-time="1092" object-type="user" name="helloworldEAR" location="${com.sun.aas.instanceRootURI}/applications/helloworldEAR/" time-deployed="1710433619946">
+    <application deployment-time="884" object-type="user" name="helloworldEAR" location="${com.sun.aas.instanceRootURI}/applications/helloworldEAR/" time-deployed="1710437626844">
       <property name="archiveType" value="ear"></property>
       <property name="cdiDevModeEnabled" value="false"></property>
       <property name="isComposite" value="true"></property>
