@@ -1,2 +1,0 @@
-# sonarQube
- advanced topics demo
