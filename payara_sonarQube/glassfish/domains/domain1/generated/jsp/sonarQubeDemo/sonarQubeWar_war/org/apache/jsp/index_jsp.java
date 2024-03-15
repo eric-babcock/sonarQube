@@ -43,14 +43,15 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
       out.write("<head>");
       out.write("<title>");
-      out.write("check");
+      out.write("SonarQube Demo");
       out.write("</title>");
       out.write("</head>");
       out.write("<body>");
       out.write("\n");
-      out.write("            ");
+      out.write("\t\t\t");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${helloBean.message}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write('\n');
+      out.write("\n");
+      out.write("\t\t");
       out.write("</body>");
       out.write("</html>");
     } catch (Throwable t) {

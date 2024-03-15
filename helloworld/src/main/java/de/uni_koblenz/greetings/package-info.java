@@ -1,1 +1,0 @@
-package de.uni_koblenz.greetings;

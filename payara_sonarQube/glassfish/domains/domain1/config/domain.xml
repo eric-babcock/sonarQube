@@ -55,7 +55,7 @@
   <servers>
     <server config-ref="server-config" name="server">
       <application-ref ref="__admingui" virtual-servers="__asadmin"></application-ref>
-      <application-ref ref="helloworldEAR" virtual-servers="server"></application-ref>
+      <application-ref ref="sonarQubeDemo" virtual-servers="server"></application-ref>
       <resource-ref ref="jdbc/__TimerPool"></resource-ref>
       <resource-ref ref="jdbc/__default"></resource-ref>
       <resource-ref ref="concurrent/__defaultManagedExecutorService"></resource-ref>
@@ -581,15 +581,15 @@
   <deployment-groups></deployment-groups>
   <clusters></clusters>
   <applications>
-    <application deployment-time="884" object-type="user" name="helloworldEAR" location="${com.sun.aas.instanceRootURI}/applications/helloworldEAR/" time-deployed="1710437626844">
+    <application deployment-time="1016" object-type="user" name="sonarQubeDemo" location="${com.sun.aas.instanceRootURI}/applications/sonarQubeDemo/" time-deployed="1710537393355">
       <property name="archiveType" value="ear"></property>
       <property name="cdiDevModeEnabled" value="false"></property>
       <property name="isComposite" value="true"></property>
-      <property name="defaultAppName" value="helloworldEAR"></property>
-      <property name="appLocation" value="${com.sun.aas.instanceRootURI}/applications/__internal/helloworldEAR/helloworldEAR.ear"></property>
+      <property name="defaultAppName" value="sonarQubeDemo"></property>
+      <property name="appLocation" value="${com.sun.aas.instanceRootURI}/applications/__internal/sonarQubeDemo/sonarQubeDemo.ear"></property>
       <property name="keepstate" value="true"></property>
       <property name="org.glassfish.ejb.container.application_unique_id" value="0"></property>
-      <module name="helloworld.war">
+      <module name="sonarQubeWar.war">
         <engine sniffer="cdi"></engine>
         <engine sniffer="config"></engine>
         <engine sniffer="security"></engine>
