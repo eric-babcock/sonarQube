@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<faces-config version="2.3"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
+    
+    <resource-handler>org.omnifaces.resourcehandler.CombinedResourceHandler</resource-handler>
+    <application>
+        <locale-config>
+            <default-locale>en_US</default-locale>
+            <supported-locale>de</supported-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+        <resource-bundle>
+            <!--
+            specifying the resource-bundle in this config file enables
+            code completion in NetBeans xhtml editor,
+            whereas f:loadbundle does not
+            -->
+            <base-name>charlie.i18n.Messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
+    </application>
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>staffPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/user/home.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>adminPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/admin/home.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>editPollPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/user/edit_poll.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addQuestionPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/user/add_question.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>managePollPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/user/manage_poll.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>manageParticipantListPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/user/manage_participant_list.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>editParticipantPollPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/user/edit_participant_list.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>managePollsAdminPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/admin/manage_polls_admin.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>manageOrganizersAdminPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/admin/manage_organizers.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>viewResult</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/user/view_result.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>viewPollResultPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/user/view_poll_result.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>participantResultPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/participant/poll_result.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addQuestionPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/user/add_question.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>manageQuestionPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/user/manage_question.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>editQuestionPage</from-outcome>
+            <redirect>true</redirect>
+            <to-view-id>/pages/user/edit_question.xhtml</to-view-id>
+        </navigation-case>
+        
+    </navigation-rule>
+
+</faces-config>

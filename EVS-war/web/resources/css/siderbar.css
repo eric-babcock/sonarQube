@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
+
+#sidebar {
+    z-index: 1000;
+    position: fixed;
+    left: 200px;
+    width: 200px;
+    height: 100%;
+    margin-left: -200px;
+    overflow-y: auto;
+    background: #37474F;
+}
+
+#sidebar header {
+    background-color: #263238;
+    font-size: 20px;
+    line-height: 52px;
+    text-align: center;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+#sidebar header a {
+    color: #fff;
+    display: block;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+#sidebar header a:hover {
+    color: #fff;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+#sidebar .nav li{
+    padding: 10px;
+    border-bottom: 1px solid #455A64 !important;
+    width: 100%;
+}
+
+#sidebar .nav a{
+    background: #37474F;
+    color: #CFD8DC;
+    font-size: 14px;
+    padding: 16px 24px;
+    text-decoration: none;
+}
+
+#sidebar .nav a:hover{
+    background: #3747A166;
+    color: #ECEFF1;
+}
+
+#sidebar .nav a i{
+    margin-right: 16px;
+}
+
+

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<ui:composition
+    template="/WEB-INF/templates/page-layout.xhtml"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:param name="pageHeadline" value="${msg.managePolls}"/>
+    <ui:define name="content">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between">
+                <center><h4>${msg.managePolls}</h4></center>
+                <hr/>
+                <div>
+                    <a class="btn btn-dark" href="#{request.contextPath}/pages/user/add_poll.xhtml"
+                       role="button">${msg.addPollLabel}</a>
+                </div>
+            </div>
+            <hr/>
+            <b:form id="participantListForm">
+                <table class="table" id="tbl-organizers">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">
+                                <h:outputText value = "${msg.pollTitleLabel}" />
+                            </th>
+                            <th scope="col">
+                                <h:outputText value="${msg.pollDescriptionLabel}"/>
+                            </th>
+                            <th scope="col">
+                                <h:outputText value="${msg.pollStartDateLabel}"/>
+                            </th>
+                            <th scope="col">
+                                <h:outputText value="${msg.pollEndDateLabel}"/>
+                            </th>
+                            <th scope="col">
+                                <h:outputText value="${msg.pollStateLabel}"/>
+                            </th>
+                            <th scope="col">
+                                <h:outputText value="${msg.pollTrackParticipantLabel}"/>
+                            </th>
+                            <th scope="col">
+                                <h:outputText value="${msg.pollPrimaryOwnerLabel}"/>
+                            </th>
+                            <th scope="col">
+                                <h:outputText value="${msg.actionLabel}"/>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ui:repeat value="#{pollManager.pollsWithPagination.data}" var="poll" varStatus="loop">
+                            <tr>
+                                <th scope="row">#{loop.index + 1}</th>
+                                <td>#{poll.title}</td>
+                                <td>#{poll.description}</td>
+                                <td>#{poll.startsAt}</td>
+                                <td>#{poll.endsAt}</td>
+                                <td>#{poll.state}</td>
+                                <td>#{poll.trackParticipant}</td>
+                                <td>#{poll.primaryOrganizer.username}</td>                          
+                                <td><b:commandButton id="startPollBtn"
+                                                     icon="submit"
+                                                     value="${msg.startPollLabel}"
+                                                     action="#{pollManager.startPoll()}"
+                                                     update="participantListForm">
+                                        <f:param name="id" value="#{poll.id}"/>
+                                    </b:commandButton></td>
+                                <td class="d-flex">
+                                    <div>
+                                        <div class="d-flex justify-content-center align-items-center gap-2">
+                                            <div>
+                                                <h:link outcome="editPollPage" disabled="#{poll.state eq 'FINISHED'}">
+                                                    <f:param name="pollUuid" value="#{poll.uuid}" />
+                                                    <image src="#{request.contextPath}/resources/images/edit-icon.png" style="width: 25px;"/>
+                                                </h:link>
+                                            </div>
+                                        </div>
+                                        <b:commandButton id="startPollBtn-#{poll.id}"
+                                                         size="lg"
+                                                         icon-awesome="fa-trash-o"                                     
+                                                         action="#{pollManager.deletePoll()}"
+                                                         update="participantListForm">
+                                            <f:param name="id" value="#{poll.id}"/>
+                                        </b:commandButton>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                    </tbody>
+                </table>
+                <b:alert severity="danger" rendered="${pollManager.renderErrorMessage}">
+                    ${msg.startPollErrorMessage}<br/>
+                    ${pollManager.errorMessage}
+                </b:alert>
+            </b:form>
+
+            <div class="d-flex ml-4">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <ui:repeat value="#{pollManager.pageNumberList}" var="pageNumber">
+                            <li class="page-item"><a class="page-link"
+                                                     href="#{request.contextPath}/pages/user/manage_poll.xhtml?pageNumber=#{pageNumber}&amp;pageSize=#{pollManager.requestedPageSize}&amp;sortOrder=#{pollManager.requestedSortOrder}&amp;sortBy=#{pollManager.requestedSortBy}&amp;show_polls_configured_by_me=#{pollManager.filterPostOwner}">#{pageNumber}</a>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                </nav>
+
+            </div>
+
+            <f:metadata>
+                <f:viewParam name="pageNumber" value="#{pollManager.paginationRequest.pageNumber}"/>
+                <f:viewParam name="pageSize" value="#{pollManager.paginationRequest.pageSize}"/>
+                <f:viewParam name="sortOrder" value="#{pollManager.paginationRequest.sortOrder}"/>
+                <f:viewParam name="sortBy" value="#{pollManager.paginationRequest.sortBy}"/>
+                <f:viewParam name="show_polls_configured_by_me" value="#{pollManager.filterPostOwner}"/>
+            </f:metadata>
+
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,135 @@
+<ui:composition
+    template="/WEB-INF/templates/page-layout.xhtml"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns  ="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:param name="pageHeadline" value="${msg.editQuestionHeadline}"/>
+    <ui:define name="content">
+         <h:link outcome="manageQuestionPage" value="${msg.pollEditBackToList}"/>
+         <h3>${msg.editQuestionHeadline}</h3>
+        <h:form class="card-body cardbody-color p-lg-5" id="addQuesion">
+            <b:alert severity="success" rendered="${editQuestionBean.success}">
+                ${msg.questionEditSuccessMessage}
+            </b:alert>
+            <b:alert severity="danger" rendered="${editQuestionBean.failure}">
+                ${msg.questionEditFailureMessage}<br/>
+                ${editQuestionBean.failureMessage}
+            </b:alert>
+            <div class ="form-group mb-3 row">
+                <div class="col-11">
+                    <div>
+                        <b:inputText type="text" 
+                                     class="form-control w-50" 
+                                     id="title" 
+                                     name ="title"
+                                     label="${msg.pollTitleLabel}"
+                                     value="#{editQuestionBean.question.title}"
+                                     required="true"
+                                     />
+                        <h:message for="title" class="text-danger mt-2"/>
+                    </div>
+                </div>
+            </div>
+            <div class ="form-group mb-3 row">
+                
+                <div class="col-11">
+                    <div>
+                        <b:inputText type="text" 
+                                     class="form-control w-50" 
+                                     id="description" 
+                                     name ="description"
+                                     label="${msg.pollDescriptionLabel}"
+                                     value="#{editQuestionBean.question.description}"
+                                     />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-3 row">
+                <div class ="col-11">
+                    <b:row>
+                        <b:selectOneMenu span="6" label-col-md="2" id="type" label="${msg.questionTypeLabel}" value="#{editQuestionBean.question.type}" required="true">
+                            <f:selectItems value="#{editQuestionBean.questionTypes}" />
+                            <f:ajax render="addQuesion" />
+                        </b:selectOneMenu>
+                        <h:message for="type" class="text-danger mt-2"/>
+                    </b:row>
+                </div>
+            </div>
+            <div class="form-group mb-3 row">
+               
+                <h:panelGroup id="asnwerSection" rendered="#{editQuestionBean.question.type eq 'MULTIPLE_CHOICE' or editQuestionBean.question.type eq 'SINGLE_CHOICE'}">
+                    <ui:repeat value="#{editQuestionBean.dynamicAnswers}" var="answer" varStatus="status">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">${msg.answerLabel} #{status.index + 1}</span>
+                            </div>
+                            <b:inputText value="#{answer.shortName}" id="answer_#{status.index}" name="answer_#{status.index}" placeholder="${msg.enterAnswerPlaceholder}" required="true"/>
+                             <h:message for="answer_#{status.index}" class="text-danger mt-2"/>
+                            <div class="input-group-append">
+                                <b:commandButton look="warning" icon="minus-sign" value="${msg.removeLabel}" action="#{editQuestionBean.removeDynamicAnswer(answer)}">
+                                    <f:ajax execute="@this" render="addQuesion" />
+                                </b:commandButton>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                    
+                    <b:row>
+                        <div class="col-11">
+                            <div>
+                                <b:inputText type="text" 
+                                             class="form-control w-50" 
+                                             id="minChoice" 
+                                             name ="minChoice"
+                                             label="${msg.minChoiceLabel}"
+                                             value="#{editQuestionBean.question.multipleChoiceMin}"
+                                             required="true"
+                                             disabled="#{editQuestionBean.question.type eq 'SINGLE_CHOICE'}"
+                                             />
+                                <h:message for="minChoice" class="text-danger mt-2"/>
+                            </div>
+                        </div>
+                    </b:row>
+                    <b:row>
+                        <div class="col-11">
+                            <div>
+                                <b:inputText type="text" 
+                                             class="form-control w-50" 
+                                             id="maxChoice" 
+                                             name ="maxChoice"
+                                             label="${msg.maxChoiceLabel}"
+                                             value="#{editQuestionBean.question.multipleChoiceMax}"
+                                             required="true"
+                                             disabled="#{editQuestionBean.question.type eq 'SINGLE_CHOICE'}"
+                                             />
+                                <h:message for="minChoice" class="text-danger mt-2"/>
+                            </div>
+                        </div>
+                    </b:row>
+                    
+                    <b:row>
+                        <div class="col-md-4">
+                            <b:commandButton icon="plus-sign" look="primary" value="${msg.addAnswerLabel}" action="#{editQuestionBean.addDynamicAnswer()}">
+                                <f:ajax execute="@this" render="addQuesion" />
+                            </b:commandButton>
+                        </div>
+                    </b:row>
+                </h:panelGroup>
+            </div> 
+            <div class="row">
+                <div class="col-11">
+                    <div class="d-flex justify-content-end w-50" id ="addPoll">
+                        <h:commandButton id="btn-submit"
+                                         value="${msg.submitLabel}"
+                                         class="btn btn-sm btn-dark mt-2"
+                                         action="${editQuestionBean.updateQuestionAnswer()}">
+                        </h:commandButton>
+                    </div>
+
+                </div>
+            </div>
+            
+        </h:form>
+    </ui:define>
+</ui:composition>

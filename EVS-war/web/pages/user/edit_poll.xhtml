@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/WEB-INF/templates/page-layout.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:param name="pageHeadline" value="${msg.pollEditHeadline}"/>
+    <ui:define name="metadata">
+        <f:verbatim>
+            <script type="text/javascript">
+                function closeParticipantListModal() {
+                    $('#manageParticipantModal').modal('hide');
+                }
+            </script>
+        </f:verbatim>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:link outcome="managePollPage" value="${msg.pollEditBackToList}"/>
+        <b:messages/>
+         <b:alert severity="info" rendered="${not pollEditBean.valid}">
+             <h:outputFormat value="${msg.pollEditPollNotFound}">
+                 <f:param value="${pollEditBean.pollUuid}"/>
+            </h:outputFormat>
+        </b:alert>
+
+        <b:form id="pollEditForm" class="card-body cardbody-color p-lg-5" rendered="${pollEditBean.valid}" horizontal="true">
+
+            <b:alert severity="success" rendered="${pollEditBean.success}">
+                ${msg.pollEditSuccessMessage}
+            </b:alert>
+            <b:alert severity="danger" rendered="${pollEditBean.failure}">
+                ${msg.pollEditFailureMessage}<br/>
+                ${pollEditBean.failureMessage}
+            </b:alert>
+            
+            <b:alert severity="success" rendered="${pollEditBean.pollParticipantSuccess}">
+                ${msg.pollParticipantEditSuccessMessage}
+            </b:alert>
+            <b:alert severity="danger" rendered="${pollEditBean.pollParticipantFailure}">
+                ${msg.pollParticipantEditFailureMessage}<br/>
+                ${pollEditBean.pollParticipantFailureMessage}
+            </b:alert>
+
+            <b:row>
+                <b:inputText span="6" label-col-md="2" id="title" label="${msg.pollTitleLabel}" value="#{pollEditBean.pollDto.title}" 
+                             required="true"
+                             disabled="#{pollEditBean.pollDto.state eq 'STARTED' or pollEditBean.pollDto.state eq 'VOTING'}"/>
+                <b:message offset="2" span="6"/>
+            </b:row>
+
+            <b:row>
+                <b:inputText span="6" label-col-md="2" id="description" label="${msg.pollDescriptionLabel}" 
+                             disabled="#{pollEditBean.pollDto.state eq 'STARTED' or pollEditBean.pollDto.state eq 'VOTING'}" 
+                             value="#{pollEditBean.pollDto.description}" 
+                             required="false"/>
+                <b:message offset="2" span="6"/>
+            </b:row>
+            
+            <b:row>
+                <b:inputText span="6" label-col-md="2"  type="datetime-local" id="startsAt" disabled="#{pollEditBean.pollDto.state eq 'STARTED' or pollEditBean.pollDto.state eq 'VOTING'}"
+                             label="${msg.pollStartDateLabel}" value="#{pollEditBean.pollDto.startsAt}" required="true"/>
+                     <f:convertDateTime pattern="yyyy-MM-dd'T'HH:mm:ss" timeZone="UTC" />
+                <b:message offset="2" span="6"/>
+            </b:row>
+
+            <b:row>
+                <b:inputText span="6" label-col-md="2"  type="datetime-local" id="endsAt" label="${msg.pollEndDateLabel}" value="#{pollEditBean.pollDto.endsAt}" required="true"/>
+                     <f:convertDateTime pattern="yyyy-MM-dd'T'HH:mm:ss" timeZone="UTC" />
+                <b:message offset="2" span="6"/>
+            </b:row>
+
+            <b:row>
+                <b:inputText span="6" label-col-md="2" id="state" label="${msg.pollStateLabel}" value="#{pollEditBean.pollDto.state}" disabled = "true"/>
+                <b:message offset="2" span="6"/>
+            </b:row>
+
+            <b:row>
+                <b:selectBooleanCheckbox span="6" label-col-md="2" id="trackParticipant" disabled="#{pollEditBean.pollDto.state eq 'STARTED' or pollEditBean.pollDto.state eq 'VOTING'}" label="${msg.pollTrackParticipantLabel}" value="#{pollEditBean.pollDto.trackParticipant}" />
+                <b:message offset="2" span="6"/>
+            </b:row>
+
+
+            <b:row>
+                <b:inputText span="6" label-col-md="2" id="username" label="${msg.pollCreatedByLabel}" value="#{pollEditBean.getPrimaryOwner()}" disabled = "true"/>
+                <b:message offset="2" span="6"/>
+            </b:row>
+
+
+            <b:row class="topsep">
+                
+                <div class="col-md-3">
+                    <b:button value="${msg.editParticipantListLabel}" icon="edit" class="btn btn-primary" rendered="#{pollEditBean.pollDto.state eq 'PREPARED'}" p:data-toggle="modal" p:data-target="#manageParticipantModal"/>
+                </div> 
+                <div class="col-md-3">
+                    <a href="add_organizers_to_poll.xhtml?poll_uuid=#{pollEditBean.pollUuid}" class="btn btn-default">
+                        ${msg.addNewOrganizerLabel}
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <b:button id="addQuestionButton"
+                                    icon="plus-sign"
+                                    look="info"
+                                    outcome="addQuestionPage"
+                                    value="${msg.addQuestionHeadline}"
+                                    rendered="#{pollEditBean.pollDto.state eq 'PREPARED'}">
+                        <f:param name="pollId" value="#{pollEditBean.pollDto.id}"/>
+                    </b:button>
+                </div>
+                <div class="col-md-3">
+                    <b:commandButton id="saveChangesButton" icon="check"
+                                     look="success"
+                                     action="#{pollEditBean.saveChanges}"
+                                     value="${msg.pollEditSaveChangesButtonLabel}" />
+                </div>
+                
+            </b:row>
+        </b:form>
+        
+        <b:modal id="manageParticipantModal" title="${msg.manageParticipantListLabel}" 
+                 closable="false"
+                 closeOnEscape="true">
+            <h:form id="editParticipantForm">
+                
+                <b:selectMultiMenu id="multiSelect"
+                                    update="newEmailList"
+                                    label="${msg.participantListHeadline}" 
+                                    value="#{pollEditBean.selectedParticipants}"
+                                    ondropdownhide="ajax:pollEditBean.updateEmailList()">
+                    <f:selectItems value="#{pollEditBean.processedOrganizerParticipantListDto.entrySet()}" 
+                                    var="participant"
+                                    itemLabel="#{participant.key}" 
+                                    itemValue="#{participant.value}" />
+                 </b:selectMultiMenu>
+                
+                <b:inputTextarea 
+                    label ="${msg.listEmailsLabel}" 
+                    id="newEmailList" 
+                    placeholder="${msg.listEmailsPlaceholder}" 
+                    value="#{pollEditBean.newSelectedParticipants}">   
+                <h:message for="newEmailList" class="text-danger mt-2"/>
+                </b:inputTextarea>
+                
+                <b:inputTextarea label ="${msg.listEmailsLabel}" 
+                                    id="emailList" 
+                                    placeholder="${msg.listEmailsPlaceholder}" 
+                                    value="#{pollEditBean.selectedPollParticipants}">   
+                <h:message for="emailList" class="text-danger mt-2"/>
+                </b:inputTextarea>
+
+                <b:button value="${msg.cancelLabel}"
+                          dismiss="modal" onclick="return false;"/>
+                <b:commandButton value="${msg.saveButton}" 
+                                 action="#{pollEditBean.addParticipantsToPoll()}" 
+                                 look="success" 
+                                 icon="check"
+                                 onclick="closeParticipantListModal()"/>             
+            </h:form>
+        </b:modal>
+        <div hidden="true">
+            <input type="hidden" name="jsonResponse" id="user-response"/>
+        </div>
+    </ui:define>
+    
+    
+</ui:composition>

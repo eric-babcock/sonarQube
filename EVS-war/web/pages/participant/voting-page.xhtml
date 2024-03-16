@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition
+    template="/WEB-INF/templates/login-layout.xhtml"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:param name="pageHeadline" value="${msg.evsHeadline}"/>
+    <ui:define name="content">          
+        <b:alert severity="danger" rendered="${votingPageBean.renderInvalidTokenMessage}">
+            ${votingPageBean.errorMessage}
+        </b:alert>
+
+        <f:event listener="#{votingPageBean.init}" type="preRenderView" />
+        
+        <b:container rendered="#{votingPageBean.renderTokenInputForm}">
+            <br/>
+            <b:form>
+                <b:inputText placeholder="Enter token here...." value="#{votingPageBean.token}" style="width:25%" />
+                <b:commandButton value="Submit" action="#{votingPageBean.submitToken}" look="primary"/>
+            </b:form>
+        </b:container>
+
+        <b:container rendered="#{votingPageBean.currentPollParticipant != null}">
+            <center>
+                <h4>You are voting on: <b>#{votingPageBean.currentPollParticipant.poll.title}</b></h4>
+                <h6>Ends on: <b>#{votingPageBean.currentPollParticipant.poll.endsAt}</b></h6>
+                <h6>Voting as: <b>#{votingPageBean.currentPollParticipant.email}</b></h6>
+            </center>
+            <hr/>
+            <b:form id="voting-form">
+                <ui:repeat value="#{votingPageBean.pollQuestions}" var="question">
+                    <div class="form-group">
+                        <div style="display:flex; align-items: baseline; gap:10px">
+                            <div>
+                              <label for="#{question.uuid}">#{question.title}</label>                             
+                            </div>
+                            <div class="info" title="#{question.description}">
+                                &#8505;
+                            </div>
+                        </div>
+                        
+                        <ui:repeat value="#{question.answerChoices}" var="answer">
+                            <div>
+                                <b:container rendered="#{answer.isSelected}">
+                                    <input type="#{answer.inputType}" id="#{answer.uuid}" name="#{answer.inputName}" value="#{answer.id}" checked="true" />
+                                    <label for="#{answer.uuid}" title="#{answer.description}">#{answer.shortName}</label>
+                                </b:container>
+                                <b:container rendered="#{!answer.isSelected}">
+                                    <input type="#{answer.inputType}" id="#{answer.uuid}" name="#{answer.inputName}" value="#{answer.id}"/>
+                                    <label for="#{answer.uuid}" title="#{answer.description}">#{answer.shortName}</label>
+                                </b:container>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                    <hr/>
+                </ui:repeat>
+                <div hidden="true">
+                    <input type="hidden" name="jsonResponse" id="user-response"/>
+                </div>
+                <b:commandButton value="${msg.cancelLabel}" actionListener="#{votingPageBean.cancelVote}" onclick="return confirm('Are you sure you want to abstain from voting?');" class="btn-cancel"/>
+                <b:commandButton actionListener="#{votingPageBean.submitVote}" value="Submit" onclick="prepareUserResponse()" class="btn-submit"/>
+
+            </b:form>
+        </b:container>
+
+        <f:metadata>
+            <f:viewParam name="token" value="#{votingPageBean.token}"/>
+        </f:metadata>
+        <f:verbatim>
+            <script type="text/javascript">
+                function prepareUserResponse() {
+                    var form = document.getElementById('voting-form');
+                    var data = new FormData(form);
+                    data.delete('jsonResponse');
+                    data.delete('javax.faces.ViewState');
+                    data.delete('voting-form');
+                    const json = JSON.stringify(Object.fromEntries(data));
+
+                    console.log(json);
+                    document.getElementById('user-response').setAttribute('value', json);
+                    return true;
+                }
+                
+                $('input[type=radio]').click(function () {
+                    if (this.previous) {
+                        this.checked = false;
+                    }
+                    this.previous = this.checked;
+                });
+            </script>
+        </f:verbatim>
+    </ui:define>
+</ui:composition>

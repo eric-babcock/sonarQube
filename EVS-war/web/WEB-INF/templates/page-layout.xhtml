@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      >
+    <f:view id="page" locale="${localeBean.userLocale}">
+        <ui:insert name="metadata"/>
+        <h:head id="head">
+            <title>${msg.appTitle} - ${pageHeadline} </title>
+            <link rel="stylesheet" href="#{resource['css:localcss.css']}"/>
+            <link rel="stylesheet" href="#{resource['css:global.css']}"/>
+            <link rel="stylesheet" href="#{resource['css:siderbar.css']}"/>
+            <link rel="icon" type="image/x-icon" href="#{resource['images:logo.ico']}"/>
+            
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" type="javascript"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+            <script src="#{request.contextPath}/resources/js/datetimepicker.js" type="javascript"></script>
+        </h:head>
+        <h:body id="body">
+            <b:container>
+                <div id="viewport">
+                
+
+
+                    <div id="sidebar">
+                        <header>
+                            <a href="#">Electronic Voting System</a>
+                        </header>
+                        <ul class="nav">
+                            <li>
+                                <i class="zmdi zmdi-calendar"></i>
+                                <h:link value="${msg.dashboard}" outcome="#{loginBean.isAdmin() ? 'adminPage' : 'staffPage'}" />
+                            </li>
+
+                            <li>
+                                <i class="zmdi zmdi-calendar"></i>
+                                <h:link value="${msg.pollsByLabel} ${loginBean.user.username}" outcome="/pages/user/manage_poll?show_polls_configured_by_me=true" />
+                            </li>
+                            
+                            <li>
+                                <i class="zmdi zmdi-calendar"></i>
+                                <h:link value="${msg.manageParticipantListLabel}" outcome="manageParticipantListPage" />
+                            </li>
+                            <li>
+                                <i class="zmdi zmdi-calendar"></i>
+                                <h:link value="${msg.manageQuestionLabel}" outcome="manageQuestionPage" />
+                            </li>
+
+                            <li>
+                                <i class="zmdi zmdi-calendar"></i>
+                                <h:link value="${msg.pollsOwnedByOthersLabel}" outcome="/pages/user/manage_poll?show_polls_configured_by_me=false" />
+                            </li>
+                            <li>
+                                <i class="zmdi zmdi-calendar"></i>
+                                <h:link value="${msg.viewResultNavLabel}" outcome="viewResult" />
+                            </li>
+                            
+                        </ul>
+                    </div>
+
+                    <div class="content" id="body-content">
+                            <div class="container-fluid">
+                                <h4>${msg.welcomeLabel}, ${loginBean.user.username}</h4>
+                                <ui:insert name="content"/>
+                            </div>
+                    
+                    <footer>
+                        <b:well class="topsep">
+                            <b:form>
+                                ${msg.footerCurrentUserLabel}
+                                ${loginBean.loggedIn ? loginBean.user.username : msg.notLoggedIn}
+                                <b:label rendered="${loginBean.staff}" value="${msg.staffLabel}"/>
+                                <ui:fragment rendered = "${loginBean.loggedIn}">
+                                    - <h:commandLink immediate="true"
+
+                                                     actionListener="#{loginBean.logout}"
+                                                     value="${msg.logoutButtonLabel}"/>
+                                </ui:fragment>
+                                <br/>
+
+                                ${msg.footerLocaleLabel} ${localeBean.userLocale.language}
+                                - <h:commandLink immediate="true"
+                                                 actionListener="#{localeBean.selectGerman}"
+                                                 value="${msg.localeSelectGerman}">
+                                </h:commandLink>
+                                - <h:commandLink immediate="true"
+                                                 actionListener="#{localeBean.selectEnglish}"
+                                                 value="${msg.localeSelectEnglish}">
+                                </h:commandLink>
+                                <br/>
+
+                                ${msg.footerDateLabel}
+                                <h:outputText value="${localeBean.currentDate}">
+                                    <f:convertDateTime type="both"/>
+                                </h:outputText>
+                                <br/>
+                            </b:form>
+                            ${msg.footerLabel}
+                        </b:well>
+                    </footer>
+                        </div>
+                </div>
+    
+            </b:container>
+
+        </h:body>
+    </f:view>
+</html>

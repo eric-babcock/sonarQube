@@ -1,0 +1,64 @@
+.topsep {
+    margin-top: 2ex;
+}
+
+.botsep {
+    margin-bottom: 2ex;
+}
+
+.error-input {
+    border: 2px solid crimson !important;
+    border-radius: 5px !important;
+}
+
+.btn-color {
+    background-color: #0e1c36 !important;
+    color: #fff !important;
+}
+
+.profile-image-pic {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+.cardbody-color {
+    background-color: #ebf2fa;
+}
+
+a {
+    text-decoration: none;
+}
+
+.list-style-none {
+    list-style: none !important;
+}
+
+.dropdown-menu {
+    left: -25px !important;
+}
+
+.info {
+    width: 15px;
+    height: 15px;
+    border: 1px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info:hover{
+    cursor:pointer; 
+}
+
+.btn-cancel {
+    background-color: #890f0f !important;
+    color: white !important;
+}
+
+.btn-submit {
+    background-color: #50b250 !important;
+    color: white !important;
+    margin-left: 10px;
+}
