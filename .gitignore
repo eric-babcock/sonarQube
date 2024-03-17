@@ -90,3 +90,5 @@ nb-configuration.xml
 ##############################
 *.log
 
+/HelloWorld/nbproject/private/
+/payara_sonarQube/
