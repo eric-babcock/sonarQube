@@ -14,9 +14,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <ui:insert name="metadata"/><!-- create -->
         <h:head id="head">
             <title>Sonar Cloud Demo</title>
+            <link rel="stylesheet" href="#{resource['css:global.css']}"/>
         </h:head>
         <h:body id="body">
-            <b:container>
+            <b:container id="viewport">
+                <div class="viewport">
+                    check
+                </div>
                 <ui:insert name='content'/>
             </b:container>
         </h:body>
