@@ -92,5 +92,6 @@ nb-configuration.xml
 
 
 /payara_sonarQube/
+payara_sonarQube/*
 /sonarqubeDemo/nbproject/private/
 /SonarcloudDemo/nbproject/private/
