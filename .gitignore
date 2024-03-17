@@ -90,3 +90,11 @@ nb-configuration.xml
 ##############################
 *.log
 
+
+/payara_sonarQube/
+payara_sonarQube/*
+/sonarqubeDemo/nbproject/private/
+/SonarcloudDemo/nbproject/private/
+/SonarcloudDemo-war/nbproject/private/
+/SonarcloudDemo/SonarcloudDemo-war/nbproject/private/
+/SonarcloudDemo/SonarcloudDemo-ejb/nbproject/private/
