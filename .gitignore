@@ -98,3 +98,4 @@ payara_sonarQube/*
 /SonarcloudDemo-war/nbproject/private/
 /SonarcloudDemo/SonarcloudDemo-war/nbproject/private/
 /SonarcloudDemo/SonarcloudDemo-ejb/nbproject/private/
+*.properties
