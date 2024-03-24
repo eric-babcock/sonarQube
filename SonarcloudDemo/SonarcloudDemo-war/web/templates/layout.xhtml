@@ -22,13 +22,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <b:navLink value="About" href="#{resource['page:about.xhtml']}"></b:navLink>
         <b:navLink value="Contact" href="#contact"></b:navLink>
       </b:navbarLinks>
-      <h:form styleClass="navbar-form navbar-right">
-        <div class="form-group">
-          <b:inputText placeholder="Email" fieldSize="sm"/>
-          <b:inputSecret placeholder="Password" field-size="sm"/>
-        </div>
-        #{' '}
-        <b:commandButton action="a" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+      <h:form styleClass="navbar-form navbar-right" >
+        <h:panelGrid columns="2" rendered="#"
+          {!login.loggedIn}">
+          <f:validateBean>
+            <h:outputLabel for="username">Username:</h:outputLabel>
+            <h:inputText id="username" value="#{credentials.username}"/>
+            <h:outputLabel for="password">Password:</h:outputLabel>
+            <h:inputSecret id="password" value="#{credentials.password}"/>
+          </f:validateBean>
+        </h:panelGrid>
+        <h:commandButton value="Login" action="#{login.login}" rendered="#{!login.loggedIn}"/>
+        <h:commandButton value="Logout" action="{login.logout}" rendered="#{login.loggedIn}"/>
       </h:form>
     </b:navBar>
     <b:container>
