@@ -33,7 +33,7 @@
     </session-timeout>
   </session-config>
   <welcome-file-list>
-    <welcome-file>pages/index</welcome-file>
+    <welcome-file>/pages/index</welcome-file>
   </welcome-file-list>
   <mime-mapping>
     <extension>json</extension>
