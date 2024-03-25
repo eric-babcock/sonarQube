@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application version="8" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_8.xsd">
   <display-name>SonarcloudDemo</display-name>
-  <module>
-    <ejb>SonarcloudDemo-ejb.jar</ejb>
-  </module>
-  <module>
+    <module>
     <web>
       <web-uri>SonarcloudDemo-war.war</web-uri>
       <context-root>/SonarcloudDemo-war</context-root>
     </web>
+  </module>
+
+  <module>
+    <ejb>SonarcloudDemo-ejb.jar</ejb>
   </module>
 </application>
