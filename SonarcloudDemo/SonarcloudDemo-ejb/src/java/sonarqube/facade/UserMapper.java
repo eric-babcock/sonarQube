@@ -2,13 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package de.uni_koblenz.adv_topics.sonarqube.entities;
+package sonarqube.facade;
 
 /**
  *
  * @author Eric Babcock <ebabcock@uni-koblenz.de>
  */
 
+import entity.UserEntity;
+import sonarqube.dto.UserTransfer;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
