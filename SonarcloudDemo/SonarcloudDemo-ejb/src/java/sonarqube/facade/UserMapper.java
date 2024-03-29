@@ -9,7 +9,7 @@ package sonarqube.facade;
  * @author Eric Babcock <ebabcock@uni-koblenz.de>
  */
 
-import entity.UserEntity;
+import sonarqube.entity.UserEntity;
 import sonarqube.dto.UserTransfer;
 import java.util.Collection;
 import java.util.List;

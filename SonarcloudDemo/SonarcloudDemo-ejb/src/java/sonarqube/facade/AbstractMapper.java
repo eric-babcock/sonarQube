@@ -4,7 +4,7 @@
  */
 package sonarqube.facade;
 
-import entity.AbstractEntity;
+import sonarqube.entity.AbstractEntity;
 import sonarqube.dto.AbstractTransfer;
 
 /**

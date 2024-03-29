@@ -8,7 +8,7 @@ package sonarqube.dao;
  *
  * @author Eric Babcock <ebabcock@uni-koblenz.de>
  */
-import entity.UserEntity;
+import sonarqube.entity.UserEntity;
 import sonarqube.dao.AbstractAccess;
 import java.util.List;
 import javax.ejb.Stateless;
