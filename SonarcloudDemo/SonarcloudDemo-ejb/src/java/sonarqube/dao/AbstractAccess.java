@@ -8,7 +8,7 @@ package sonarqube.dao;
  *
  * @author Eric Babcock <ebabcock@uni-koblenz.de>
  */
-import entity.AbstractEntity;
+import sonarqube.entity.AbstractEntity;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
