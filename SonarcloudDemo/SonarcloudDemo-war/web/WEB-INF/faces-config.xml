@@ -28,11 +28,18 @@
         <navigation-case>
             <from-outcome>About</from-outcome>
             <to-view-id>/pages/about.xhtml</to-view-id>
-            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Index</from-outcome>
+            <to-view-id>/pages/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/pages/about.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>About</from-outcome>
+            <to-view-id>/pages/about.xhtml</to-view-id>
+        </navigation-case>
         <navigation-case>
             <from-outcome>Index</from-outcome>
             <to-view-id>/pages/index.xhtml</to-view-id>
