@@ -18,11 +18,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
   <h:body style="padding:60px">
     <b:navBar brand="User" brandHref="#{resource['page:index.xhtml']}" fixed="top" inverse="true">
       <b:navbarLinks>
-        <b:navLink value="Home"></b:navLink>
-        <b:navLink value="About" href="#{resource['page:about.xhtml']}"></b:navLink>
+        <b:navLink value="Home" outcome="Index"></b:navLink>
+        <b:navLink value="About" outcome="About"></b:navLink>
         <b:navLink value="Contact" href="#contact"></b:navLink>
       </b:navbarLinks>
-      <h:form styleClass="navbar-form navbar-right">
+       <h:form styleClass="navbar-form navbar-right">
         <div class="form-group">
           <b:inputText placeholder="Email" fieldSize="sm"/>
           <b:inputSecret placeholder="Password" field-size="sm"/>
