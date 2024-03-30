@@ -17,7 +17,7 @@ import javax.crypto.spec.PBEParameterSpec;
 @Named
 @SessionScoped
 
-public class LoginBean implements Serializable {
+public class ExampleLoginBean implements Serializable {
     public void HashPasswords() {
     byte[] salt = "salty".getBytes();
     PBEParameterSpec cipherSpec = new PBEParameterSpec(salt,10000); // Noncompliant
