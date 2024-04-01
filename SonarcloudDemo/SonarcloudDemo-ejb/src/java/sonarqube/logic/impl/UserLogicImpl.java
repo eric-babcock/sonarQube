@@ -15,7 +15,7 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import sonarqube.dao.UserAccess;
 import sonarqube.dto.UserTransfer;
-import sonarqube.entity.UserEntity;
+import sonarqube.entity.User;
 import sonarqube.facade.UserMapper;
 import sonarqube.logic.UserLogic;
 
@@ -34,7 +34,7 @@ public class UserLogicImpl implements UserLogic {
   @Resource
   private EJBContext ejbContext;
   
-  private UserEntity caller;
+  private User caller;
   
   @AroundInvoke
   private Object getCaller(InvocationContext ctx) throws Exception {
@@ -61,26 +61,26 @@ public class UserLogicImpl implements UserLogic {
 
   @Override
   public UserTransfer getUserByUsername(String username) {
-    UserEntity userEntity = userAccess.findUserByUsername(username);
+    User userEntity = userAccess.findUserByUsername(username);
     
     return userMapper.toDto(userEntity);
   }
 
   @Override
   public List<UserTransfer> getAllUsers() {
-    List<UserEntity> entities = userAccess.findAllUsers();
+    List<User> entities = userAccess.findAllUsers();
     return entities.stream().map(userMapper::toDto).collect(Collectors.toList());
   }
 
   @Override
   public void addUser(UserTransfer userTransfer) {
-    UserEntity userEntity = userMapper.toEntity(userTransfer);
+    User userEntity = userMapper.toEntity(userTransfer);
     userAccess.save(userEntity);
   }
 
   @Override
   public UserTransfer getUserById(int id) {
-    UserEntity userEntity = userAccess.find(id);
+    User userEntity = userAccess.find(id);
     return userMapper.toDto(userEntity);
   }
 
