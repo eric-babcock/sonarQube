@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+
 import sonarqube.dto.UserTransfer;
 import sonarqube.logic.UserLogic;
 
@@ -57,6 +58,10 @@ public class Login implements Serializable{
     return currentUser;
   }
   
+  public void login() {
+      FacesContext context = FacesContext.getCurrentInstance();
+  }
+  
   public void invalidateSession() {
     LOG.log(Level.INFO, "invalidateSession()");
     Principal principal = FacesContext
@@ -75,16 +80,7 @@ public class Login implements Serializable{
   }
   
   public void logout() {
-    try {
       invalidateSession();
-      
-      FacesContext
-              .getCurrentInstance()
-              .getExternalContext()
-              .redirect("/pages/index.html");
-    } catch (IOException exception) {
-      Logger.getLogger(Login.class.getName()).log(Level.SEVERE,null, exception);
-    }
   }
   
   
