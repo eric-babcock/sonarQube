@@ -8,8 +8,9 @@ package sonarqube.dao;
  *
  * @author Eric Babcock <ebabcock@uni-koblenz.de>
  */
-import sonarqube.entity.UserEntity;
+import sonarqube.entity.User;
 import sonarqube.dao.AbstractAccess;
+
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -19,39 +20,41 @@ import javax.persistence.PersistenceContext;
 
 @Stateless
 @LocalBean
-public class UserAccess extends AbstractAccess<UserEntity> {
+public class UserAccess extends AbstractAccess<User> {
 
     @PersistenceContext(unitName = "SonarcloudDemo-ejbPU")
-    private EntityManager entitymanager;   
+    private EntityManager entityManager;   
 
     @Override
     protected EntityManager getEntityManager() {
-        return entitymanager;
+        return entityManager;
     }
 
     public UserAccess() {
-        super(UserEntity.class);
+        super(User.class);
     }
 
-    public UserEntity getUser(String userName) {
-        UserEntity userentity;
+    public User getUser(String username) {
+        User user;
         try {
-            userentity = entitymanager.createNamedQuery("getUserByUserName", UserEntity.class)
-                    .setParameter("username", userName)
+            user = entityManager.createNamedQuery("getUserByUserName", User.class)
+                    .setParameter("username", username)
                     .getSingleResult();
         } catch (NoResultException e) {
-            userentity = new UserEntity(true);
-            userentity.setUsername(userName);
-            userentity.setFirstName(userName);
-            userentity.setLastName(userName);
-            entitymanager.persist(userentity);
+            user = new User(true);
+            user.setUsername(username);
+            user.setFirstName(username);
+            user.setLastName(username);
+            entityManager.persist(user);
         }
-        return userentity;
+        return user;
     }
     
-    public UserEntity getByUuid(String uuid) {
+    
+    
+    public User getByUuid(String uuid) {
         try {
-            return entitymanager.createNamedQuery("getUserByUuid", UserEntity.class)
+            return entityManager.createNamedQuery("getUserByUuid", User.class)
                     .setParameter("uuid", uuid)
                     .getSingleResult();
         } catch (NoResultException e) {
@@ -60,9 +63,9 @@ public class UserAccess extends AbstractAccess<UserEntity> {
         }
     }
     
-    public UserEntity findUserByUsername(String username){
+    public User findUserByUsername(String username){
         try{
-        return entitymanager.createNamedQuery("getUserByUserName", UserEntity.class)
+        return entityManager.createNamedQuery("getUserByUserName", User.class)
                 .setParameter("username", username)
                 .getSingleResult();
         } catch (NoResultException e){
@@ -70,14 +73,14 @@ public class UserAccess extends AbstractAccess<UserEntity> {
         }
     }
     
-    public List<UserEntity> findAllUsers(){
-        return entitymanager.createNamedQuery("getUserList", UserEntity.class)
+    public List<User> findAllUsers(){
+        return entityManager.createNamedQuery("getUserList", User.class)
                 .getResultList();
     }
     
-    public void save(UserEntity userentity){
+    public void save(User userentity){
         create(userentity);
     }
-
+    
     
 }

@@ -16,22 +16,56 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <link rel="stylesheet" href="#{resource['css:global.css']}"/>
   </h:head>
   <h:body style="padding:60px">
-    <b:navBar brand="User" brandHref="#{resource['page:index.xhtml']}" fixed="top" inverse="true">
+    <b:navBar brand="${login.user.username}" 
+              brandHref="#{resource['page:index.xhtml']}" 
+              fixed="top"
+              inverse="true">
+      
       <b:navbarLinks>
         <b:navLink value="Home" outcome="Index"></b:navLink>
         <b:navLink value="About" outcome="About"></b:navLink>
-        <b:navLink value="Contact" href="#contact"></b:navLink>
+        <b:navLink value="Content" outcome="Content"></b:navLink>
       </b:navbarLinks>
-       <h:form styleClass="navbar-form navbar-right">
-        <div class="form-group">
-          <b:inputText placeholder="Email" fieldSize="sm"/>
-          <b:inputSecret placeholder="Password" field-size="sm"/>
-        </div>
-        #{' '}
-        <b:commandButton action="a" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
-      </h:form>
+      <b:form 
+        styleClass="navbar-form navbar-right"
+        id="loginForm"
+        rendered="#{!login.loggedIn}"
+        onsubmit ="document.getElementById('loginForm').action='j_security_check';">
+        <f:validateBean>
+            <b:inputText 
+              placeholder = "username" 
+              fieldId ="username"
+              id="username" 
+              name = "j_username"
+              required = "true"/>
+            <b:inputSecret 
+              placeholder = "password" 
+              id="passwordDiv"
+              type="password"
+              fieldId="password"
+              name="j_password"
+              required="true"/>
+            <b:commandButton 
+              action="#{login.login}" 
+              value="Login" 
+              look="success"
+              ajax ="false"
+              type="submit"
+              onclick="#{login.login()}"
+              icon="chevron-right" 
+              iconAlign="right"/>
+          </f:validateBean>
+      </b:form>
+      <b:button 
+        styleClass="navbar-form navbar-right"
+        onclick="#{login.logout()}"
+        look="primary"
+        rendered="#{login.loggedIn}"
+        value="Logout"/> 
     </b:navBar>
     <b:container>
+      <h:panelGroup>
+</h:panelGroup>
       <ui:insert name='content'/>           
     </b:container>
   </h:body>

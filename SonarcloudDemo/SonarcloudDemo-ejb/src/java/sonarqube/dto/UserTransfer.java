@@ -13,14 +13,16 @@ public class UserTransfer extends AbstractTransfer{
     private String username;
     private String firstName;
     private String lastName;
+    private String password;
 
     public UserTransfer() {
     }
     
     
-    public UserTransfer(String uuid, int jpaVersion, String username, String firstName, String lastName) {
+    public UserTransfer(String uuid, int jpaVersion, String username, String password, String firstName, String lastName) {
         super(uuid, jpaVersion);
         this.username = username;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -48,10 +50,13 @@ public class UserTransfer extends AbstractTransfer{
     public void setUsername(String username) {
         this.username = username;
     }
+    
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
     @Override
     public String toString() {
-        return "UserTransfer{" + "username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + '}';
+        return "UserTransfer{" + "username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + '}';
     }
     
 }

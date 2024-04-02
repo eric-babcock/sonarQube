@@ -9,7 +9,7 @@ package sonarqube.facade;
  * @author Eric Babcock <ebabcock@uni-koblenz.de>
  */
 
-import sonarqube.entity.UserEntity;
+import sonarqube.entity.User;
 import sonarqube.dto.UserTransfer;
 import java.util.Collection;
 import java.util.List;
@@ -20,9 +20,9 @@ import javax.ejb.Stateless;
 
 @Stateless
 @LocalBean
-public class UserMapper extends AbstractMapper<UserEntity, UserTransfer> {
+public class UserMapper extends AbstractMapper<User, UserTransfer> {
   @Override
-  public UserTransfer toDto(UserEntity entity) {
+  public UserTransfer toDto(User entity) {
     if(entity == null)
       return null;
     
@@ -31,23 +31,25 @@ public class UserMapper extends AbstractMapper<UserEntity, UserTransfer> {
     dto.setFirstName(entity.getFirstName());
     dto.setLastName(entity.getLastName());
     dto.setUsername(entity.getUsername());
+    dto.setPassword(entity.getPassword());
     return dto;
   }
   
   @Override
-  public UserEntity toEntity(UserTransfer domain) {
+  public User toEntity(UserTransfer domain) {
     if(domain == null)
       return null;
     
-    super.setEntity(new UserEntity());
-    UserEntity entity = super.toEntity(domain);
+    super.setEntity(new User());
+    User entity = super.toEntity(domain);
     entity.setFirstName(domain.getFirstName());
     entity.setLastName(domain.getLastName());
     entity.setUsername(domain.getUsername());
+    entity.setPassword(domain.getPassword());
     return entity;
   }
   
-  public List<UserTransfer> toDtoList(List<UserEntity> entities) {
+  public List<UserTransfer> toDtoList(List<User> entities) {
     return entities.stream().map(entity -> toDto(entity)).collect(Collectors.toList());
   }
   
