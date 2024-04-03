@@ -78,8 +78,8 @@ public class UserAccess extends AbstractAccess<User> {
                 .getResultList();
     }
     
-    public void save(User userentity){
-        create(userentity);
+    public void save(User user){
+        create(user);
     }
     
     

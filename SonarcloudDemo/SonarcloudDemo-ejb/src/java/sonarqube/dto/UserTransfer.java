@@ -13,6 +13,7 @@ public class UserTransfer extends AbstractTransfer{
     private String username;
     private String firstName;
     private String lastName;
+    private String password;
 
     public UserTransfer() {
     }
@@ -47,6 +48,14 @@ public class UserTransfer extends AbstractTransfer{
 
     public void setUsername(String username) {
         this.username = username;
+    }
+    
+    public String getPassword() {
+      return password;
+    }
+    
+    public void setPassword(String password) {
+      this.password = password;
     }
     
 

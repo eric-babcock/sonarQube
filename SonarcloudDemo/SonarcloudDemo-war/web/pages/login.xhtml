@@ -1,86 +1,32 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui">
-        <h:head>
-            <title>Login </title>
-            <link rel="stylesheet" href="#{resource['css:global.css']}"/>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
-        </h:head>
-        <h:body style="padding:60px">
-            <b:container>
-                <legend>Please Log In</legend>
-        <b:form horizontal="true" 
-                id="loginForm"
-                onsubmit ="document.getElementById('loginForm').action='j_security_check';"
-                >
-            <b:inputText 
-                placeholder ="username"
-                fieldId ="username"
-                name="j_username"
-                label="Username"
-                required = "true"
-                colMd="10"
-                labelColMd="2"
-                >
-                <f:facet name ="prepend">
-                    <b:icon name="user"/>
-                </f:facet>
-            </b:inputText>
-            <b:message for="@previous"/>
-            <b:inputSecret
-                id ="passwordDiv"
-                type="password"
-                fieldId="password"
-                name="j_password"
-                placeholder ="password"
-                label="Password}"
-                required = "true"
-                colMd="10"
-                labelColMd="2"
-                >
-                
-                <f:facet name="prepend">
-                    <b:iconAwesome name="key" />
-                </f:facet>
-                <f:facet name="append">
-                    <b:commandButton 
-                        look ="success"
-                        ajax ="false"
-                        type="submit"
-                        value = "Login"
-                        action="#{login.login()}"
-                        onclick="#{login.login()}"/>
-                </f:facet>
-            </b:inputSecret>
-            <b:message for="passwordDiv"/>
-        </b:form>
-        
-        
+  <h:head>
+    <title>Hello</title>
+  </h:head>
+  <h:body>
+		<h:form id="j_security_check">
+			<center>
+				<h:messages errorClass="errorMessage" infoClass="infoMessage"
+          warnClass="warnMessage">
+        </h:messages>
+				<h:panelGrid columns="2">
+					<h:outputText value="Username : "/>
+          <h:inputText id="j_username" value="#{loginBean.username}"/>
 
-        <!--
-        this page is also registered as login error page in web.xml
-        show error message only if j_username parameter is set
-        (this happens after a failed login attempt)
-        -->
-        <b:alert severity="danger" rendered="${request.parameterMap.containsKey('j_username')}">
-            Error
-        </b:alert>
-                <footer>
-                    <b:well class="topsep">
-                        <b:form>
-                            ${loginBean.loggedIn ? loginBean.user.username : msg.notLoggedIn}
-                            <ui:fragment rendered = "${loginBean.loggedIn}">
-                                - <h:commandLink immediate="true"
-                                                 actionListener="#{loginBean.logout}"
-                                                 value="${msg.logoutButtonLabel}"/>
-                            </ui:fragment>
-                        </b:form>
-                    </b:well>
-                </footer>
-            </b:container>
-        </h:body>
+					<h:outputText value="Password : "/>
+					<h:inputSecret id="j_password" value="#{loginBean.password}"/>
+
+          <h:commandButton value="Submit" action="#{loginBean.login()}"
+									 type="submit"/>
+				</h:panelGrid>
+			</center>
+		</h:form>
+	</h:body>
 </html>
