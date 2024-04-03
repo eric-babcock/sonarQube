@@ -24,25 +24,24 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
     <navigation-rule>
-        <from-view-id>/pages/index.xhtml</from-view-id>
+        <from-view-id>/pages/*</from-view-id>
         <navigation-case>
             <from-outcome>About</from-outcome>
             <to-view-id>/pages/about.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>Index</from-outcome>
-            <to-view-id>/pages/index.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/pages/about.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>About</from-outcome>
-            <to-view-id>/pages/about.xhtml</to-view-id>
+          <from-action>
+            "#{loginBean.login()}"
+          </from-action>
+          <to-view-id>/pages/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>Index</from-outcome>
             <to-view-id>/pages/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+          <from-outcome>Content</from-outcome>
+          <to-view-id>/pages/user/home.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>
