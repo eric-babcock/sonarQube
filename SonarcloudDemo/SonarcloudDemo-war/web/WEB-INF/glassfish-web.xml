@@ -17,14 +17,9 @@
 -->
 <glassfish-web-app error-url="">
   <context-root>/SonarcloudDemo</context-root>
-<security-role-mapping>
-    <role-name>STAFF</role-name>
-    <principal-name>eric</principal-name>
-    <group-name>EMPLOYEE</group-name>
-  </security-role-mapping>
   <security-role-mapping>
     <role-name>USER</role-name>
-    <group-name>UNI-AUTH</group-name>
+    <principal-name>eric</principal-name>
   </security-role-mapping>
   <security-role-mapping>
     <role-name>ADMIN</role-name>
@@ -36,4 +31,4 @@
       <description>Keep a copy of the generated servlet class' java code.</description>
     </property>
   </jsp-config>
-  </glassfish-web-app>
+</glassfish-web-app>
