@@ -34,17 +34,17 @@ public class UserAccess extends AbstractAccess<User> {
         super(User.class);
     }
 
-    public User getUser(String username) {
+    public User getUser(String userName) {
         User user;
         try {
             user = entityManager.createNamedQuery("getUserByUserName", User.class)
-                    .setParameter("username", username)
+                    .setParameter("username", userName)
                     .getSingleResult();
         } catch (NoResultException e) {
             user = new User(true);
-            user.setUsername(username);
-            user.setFirstName(username);
-            user.setLastName(username);
+            user.setUsername(userName);
+            user.setFirstName(userName);
+            user.setLastName(userName);
             entityManager.persist(user);
         }
         return user;

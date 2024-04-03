@@ -32,9 +32,6 @@ public class User extends AbstractEntity {
 
     @Column(name = "username", nullable = false, unique = true, updatable = false)
     private String username;
-    
-    @Column(name = "password", nullable = false, updatable = true)
-    private String password;
 
     public User() {
     }
@@ -67,12 +64,9 @@ public class User extends AbstractEntity {
         this.username = username;
     }
     
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
-
     @Override
     public String toString() {
-        return "User{" + "firstName=" + firstName + ", lastName=" + lastName + ", username=" + username + ", password=" + password + '}';
+        return "User{" + "firstName=" + firstName + ", lastName=" + lastName + ", username=" + username + '}';
     }
 
 }

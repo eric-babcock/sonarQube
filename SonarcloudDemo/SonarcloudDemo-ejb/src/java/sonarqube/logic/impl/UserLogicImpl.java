@@ -38,13 +38,13 @@ public class UserLogicImpl implements UserLogic {
   private User caller;
   
   @AroundInvoke
-  private Object getCaller(InvocationContext ctx) throws Exception {
-    String username = getCurrentUsername();
-    if (username != null){
-      caller = userAccess.getUser(username);
+    private Object getCaller(InvocationContext ctx) throws Exception {
+        String username = getCurrentUsername();
+        if (username != null) {
+            caller = userAccess.getUser(username);
+        }
+        return ctx.proceed();
     }
-    return ctx.proceed();
-  }
   
   @Override 
   public UserTransfer getCurrentUser() {
