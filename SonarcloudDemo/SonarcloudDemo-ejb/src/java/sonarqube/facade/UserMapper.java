@@ -31,7 +31,6 @@ public class UserMapper extends AbstractMapper<User, UserTransfer> {
     dto.setFirstName(entity.getFirstName());
     dto.setLastName(entity.getLastName());
     dto.setUsername(entity.getUsername());
-    dto.setPassword(entity.getPassword());
     return dto;
   }
   
@@ -45,7 +44,6 @@ public class UserMapper extends AbstractMapper<User, UserTransfer> {
     entity.setFirstName(domain.getFirstName());
     entity.setLastName(domain.getLastName());
     entity.setUsername(domain.getUsername());
-    entity.setPassword(domain.getPassword());
     return entity;
   }
   

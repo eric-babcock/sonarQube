@@ -20,7 +20,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
               brandHref="#{resource['page:index.xhtml']}" 
               fixed="top"
               inverse="true">
-      
       <b:navbarLinks>
         <b:navLink value="Home" outcome="Index"></b:navLink>
         <b:navLink value="About" outcome="About"></b:navLink>
@@ -51,17 +50,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
               look="success"
               ajax ="false"
               type="submit"
-              onclick="#{login.login()}"
+              onclick="#{login.login}"
               icon="chevron-right" 
               iconAlign="right"/>
           </f:validateBean>
       </b:form>
-      <b:button 
+      <h:form>
+        <h:commandButton 
         styleClass="navbar-form navbar-right"
-        onclick="#{login.logout()}"
-        look="primary"
+        action="${login.logout()}"
         rendered="#{login.loggedIn}"
-        value="Logout"/> 
+        value="Logout"/>
+      </h:form>
     </b:navBar>
     <b:container>
       <h:panelGroup>

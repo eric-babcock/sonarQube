@@ -25,6 +25,7 @@ import sonarqube.logic.UserLogic;
  */
 @Stateless
 public class UserLogicImpl implements UserLogic {
+  
   @EJB
   private UserAccess userAccess;
   
@@ -37,12 +38,17 @@ public class UserLogicImpl implements UserLogic {
   private User caller;
   
   @AroundInvoke
-  private Object getCaller(InvocationContext ctx) throws Exception {
-    String username = getCurrentUsername();
-    if (username != null){
-      caller = userAccess.getUser(username);
+    private Object getCaller(InvocationContext ctx) throws Exception {
+        String username = getCurrentUsername();
+        if (username != null) {
+            caller = userAccess.getUser(username);
+        }
+        return ctx.proceed();
     }
-    return ctx.proceed();
+  
+  @Override 
+  public UserTransfer getCurrentUser() {
+    return userMapper.toDto(caller);
   }
   
   @Override
@@ -53,17 +59,12 @@ public class UserLogicImpl implements UserLogic {
     
     return principal.getName();
   }
-
-  @Override
-  public UserTransfer getCurrentUser() {
-    return userMapper.toDto(caller);
-  }
-
+  
   @Override
   public UserTransfer getUserByUsername(String username) {
-    User userEntity = userAccess.findUserByUsername(username);
+    User user = userAccess.findUserByUsername(username);
     
-    return userMapper.toDto(userEntity);
+    return userMapper.toDto(user);
   }
 
   @Override
@@ -74,14 +75,14 @@ public class UserLogicImpl implements UserLogic {
 
   @Override
   public void addUser(UserTransfer userTransfer) {
-    User userEntity = userMapper.toEntity(userTransfer);
-    userAccess.save(userEntity);
+    User user = userMapper.toEntity(userTransfer);
+    userAccess.save(user);
   }
 
   @Override
   public UserTransfer getUserById(int id) {
-    User userEntity = userAccess.find(id);
-    return userMapper.toDto(userEntity);
+    User user = userAccess.find(id);
+    return userMapper.toDto(user);
   }
 
   @Override

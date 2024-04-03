@@ -51,15 +51,26 @@ public class Login implements Serializable{
     if (principal == null) {
       currentUser = null;
     } else {
-        LOG.log(Level.INFO, "SONARQUBE: LOGIN user {0}", principal.getName());
-        currentUser = userLogic.getCurrentUser();
+       if (!principal.equals(oldPrincipal)) {
+                LOG.log(Level.INFO, "EVS: LOGIN user {0}", principal.getName());
+                currentUser = userLogic.getCurrentUser();
+       }
     }
+    
     oldPrincipal = principal;
     return currentUser;
   }
   
   public void login() {
+    try{
       FacesContext context = FacesContext.getCurrentInstance();
+      
+      if(context.getExternalContext().isUserInRole("USER")){
+        context.getExternalContext().redirect("pages/user/home.xhtml");
+      }
+    } catch(IOException e) {
+      System.out.println("Error:" +e);
+    }
   }
   
   public void invalidateSession() {
@@ -79,9 +90,16 @@ public class Login implements Serializable{
             .invalidateSession();
   }
   
-  public void logout() {
-      invalidateSession();
-  }
+public void logout() {
   
+        try {
+            invalidateSession();
+            
+            FacesContext.getCurrentInstance().getExternalContext()
+                    .redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/pages/index.xhtml?faces-redirect=true");
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
   
 }

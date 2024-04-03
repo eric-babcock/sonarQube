@@ -15,6 +15,7 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface UserLogic {
+  public static final String USER ="User";
   
   public UserTransfer getCurrentUser();
   
